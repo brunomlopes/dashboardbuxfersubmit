@@ -45,7 +45,7 @@ function loginUser(successCallback)
 
     var username = widget.preferenceForKey(createInstancePreferenceKey("username"));
     var password = widget.preferenceForKey(createInstancePreferenceKey("password"));
-    var loginurl = buxferUrl + "login.json?userid="+escape(username)+"&password="+escape(password);
+    var loginurl = buxferUrl + "login.json?userid="+encodeURIComponent(username)+"&password="+encodeURIComponent(password);
     
     var onloadHandler = function() {     
         var jsonResponse = JSON.parse(xmlRequest.responseText).response;
@@ -117,7 +117,7 @@ function addTransaction(description, amount, tags, account)
                 setStatus("Transaction wasn't parsed correctly...", possibleStatus.WARNING);
                 return;
             }
-            setStatus("Added to "+ account, possibleStatus.OK);
+            setStatus("Added to "+ (account || " no account"), possibleStatus.OK);
         };
         
         var text = description + " " + amount;
@@ -125,9 +125,10 @@ function addTransaction(description, amount, tags, account)
         if(tags && tags != ""){
             text += " tags:" + tags;
         }
-        text += " acct:" + account;
-        
-        var params = "token="+token+"&format=sms&text="+escape(text);
+        if(account){
+            text += " acct:" + account;
+        }
+        var params = "token="+token+"&format=sms&text="+encodeURIComponent(text);
         
         var xmlRequest = new XMLHttpRequest();
 	    xmlRequest.onload = onloadHandler;
@@ -250,12 +251,16 @@ function savePreferences()
     preferenceValue = usernameField.value;
     widget.setPreferenceForKey(preferenceValue, createInstancePreferenceKey("username"));
     
-    preferenceValue = selectedAccount[selectedAccount.selectedIndex].value;
-    widget.setPreferenceForKey(preferenceValue, createInstancePreferenceKey("accountId"));
+    if(selectedAccount.selectedIndex == -1){
+        widget.setPreferenceForKey(null, createInstancePreferenceKey("accountId"));
+        widget.setPreferenceForKey(null, createInstancePreferenceKey("accountName"));
+    }else{
+        preferenceValue = selectedAccount[selectedAccount.selectedIndex].value;
+        widget.setPreferenceForKey(preferenceValue, createInstancePreferenceKey("accountId"));
     
-    preferenceValue = selectedAccount[selectedAccount.selectedIndex].text;
-    widget.setPreferenceForKey(preferenceValue, createInstancePreferenceKey("accountName"));
-    
+        preferenceValue = selectedAccount[selectedAccount.selectedIndex].text;
+        widget.setPreferenceForKey(preferenceValue, createInstancePreferenceKey("accountName"));
+    }
     widget.setPreferenceForKey("aye", createInstancePreferenceKey("alreadyConfigured"));
 }
 
