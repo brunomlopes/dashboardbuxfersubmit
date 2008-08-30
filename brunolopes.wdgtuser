@@ -4,14 +4,14 @@
 <dict>
 	<key>Breakpoints</key>
 	<dict>
-		<key>BuxferSubmit.js:130</key>
-		<string>-addTransaction</string>
-		<key>BuxferSubmit.js:151</key>
-		<string>-load</string>
-		<key>BuxferSubmit.js:160</key>
-		<string>-remove</string>
-		<key>BuxferSubmit.js:318</key>
-		<string>-passwordField_Blur</string>
+		<key>BuxferSubmit.js:131</key>
+		<string>-</string>
+		<key>BuxferSubmit.js:152</key>
+		<string>-</string>
+		<key>BuxferSubmit.js:161</key>
+		<string>-</string>
+		<key>BuxferSubmit.js:323</key>
+		<string>-</string>
 		<key>BuxferSubmit.js:43</key>
 		<string>-loginUser</string>
 	</dict>
@@ -40,25 +40,25 @@
 	<key>Dashboard Widget Prefs</key>
 	<dict>
 		<key>id</key>
-		<string>c58dfb6b29d1ac41</string>
+		<string>3c2efa88f3d3ac41</string>
 		<key>in-layer</key>
 		<true/>
 		<key>path</key>
-		<string>/private/var/folders/t5/t5w8JvhcE0uL4uq6DmYCCE+++TI/-Tmp-/Dashcode/.BuxferSubmit.wdgtprojnBpi0w/BuxferSubmit.wdgtproj/project.wdgt/</string>
+		<string>/private/var/folders/t5/t5w8JvhcE0uL4uq6DmYCCE+++TI/-Tmp-/Dashcode/.BuxferSubmit.wdgtprojoM2c1K/BuxferSubmit.wdgtproj/project.wdgt/</string>
 		<key>percent-offset-x</key>
 		<integer>0</integer>
 		<key>percent-offset-y</key>
 		<integer>0</integer>
 		<key>percent-type</key>
-		<integer>1</integer>
+		<integer>2</integer>
 		<key>percent-x</key>
-		<real>0.28281250596046448</real>
+		<real>0.01328125037252903</real>
 		<key>percent-y</key>
-		<real>0.11874999850988388</real>
+		<real>0.11500000208616257</real>
 		<key>pos-x</key>
-		<integer>362</integer>
+		<integer>949</integer>
 		<key>pos-y</key>
-		<integer>95</integer>
+		<integer>92</integer>
 		<key>rosetta</key>
 		<false/>
 	</dict>
