@@ -7,7 +7,7 @@ function setupParts() {
     CreateGlassButton('done', { text: 'Done', onclick: 'showFront' });
     CreateText('DescriptionText', { text: 'Description' });
     CreateText('AmountText', { text: 'Amount' });
-    CreateGlassButton('submitButton', { onclick: 'submit_Click', text: 'add transaction' });
+    CreateGlassButton('submitButton', { onclick: 'addTransaction_Click', text: 'add transaction' });
     CreateText('text', { text: 'Username' });
     CreateText('text1', { text: 'Password' });
     CreateIndicator('latestStatusIndicator', { onValue: 1, criticalValue: 15, warningValue: 10 });

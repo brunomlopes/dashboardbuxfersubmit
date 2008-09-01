@@ -12,6 +12,8 @@ function createInstancePreferenceKey(key)
 var buxferUrl = "https://www.buxfer.com/api/";
 
 var possibleStatus = { UNKNOWN : 0, OK : 5, WARNING : 12, ERROR : 15 };
+var xmlHttpRequestTimeout = 30000;
+
 
 function isFirstTime(){
     if(widget.preferenceForKey(createInstancePreferenceKey("alreadyConfigured")) || false){
@@ -47,7 +49,19 @@ function loginUser(successCallback)
     var password = widget.preferenceForKey(createInstancePreferenceKey("password"));
     var loginurl = buxferUrl + "login.json?userid="+encodeURIComponent(username)+"&password="+encodeURIComponent(password);
     
+    var xmlRequest = new XMLHttpRequest();
+    
+    var timeoutId = setTimeout(function(){
+        setStatus("Timeout while logging in...", possibleStatus.ERROR);
+        xmlRequest.abort();
+    }, xmlHttpRequestTimeout);
+    
     var onloadHandler = function() {     
+        clearTimeout(timeoutId);
+        if(xmlRequest.status == 0){
+            setStatus("Error logging in", possibleStatus.ERROR);
+            return;
+        }
         var jsonResponse = JSON.parse(xmlRequest.responseText).response;
         if(isResponseStatusOk(xmlRequest)){
             setStatus("Login ok", possibleStatus.OK);
@@ -58,7 +72,7 @@ function loginUser(successCallback)
     };	
     
     // XMLHttpRequest setup code
-    var xmlRequest = new XMLHttpRequest();
+
     xmlRequest.onload = onloadHandler;
     xmlRequest.open("GET", loginurl);
     xmlRequest.setRequestHeader("Cache-Control", "no-cache");
@@ -71,26 +85,39 @@ function refreshAccountsList(successCallback)
 	    setStatus("Fetching account list...", possibleStatus.WARNING);
 	    var accountsUrl = buxferUrl + "accounts.json?token="+token;
 	    
+	    var xmlRequest = new XMLHttpRequest();
+                
+        var timeoutId = setTimeout(function(){
+            setStatus("Timeout while fetching account list...", possibleStatus.ERROR);
+            xmlRequest.abort();
+        }, xmlHttpRequestTimeout);
+    
 	    var onloadHandler = function() {
-        var jsonResponse = JSON.parse(xmlRequest.responseText).response;
-        
-		if(!isResponseStatusOk(xmlRequest)){
-		    setStatus("Error fetching accounts : "+jsonResponse.status, possibleStatus.ERROR);
-		}
-		
-		var accounts = jsonResponse.accounts;
-		
-		for(var i = 0; i < accounts.length; i++){
-		    var account = accounts[i];
-		    selectedAccount[i] = new Option(account.name, account.id, false, false);
-		}
-		setStatus("Ok", possibleStatus.OK);
-		
-		selectedAccount.disabled = false;
-		successCallback(accounts);
+            clearTimeout(timeoutId);
+            if(xmlRequest.status == 0){
+                setStatus("Error logging in", possibleStatus.ERROR);
+                return;
+            }
+
+            var jsonResponse = JSON.parse(xmlRequest.responseText).response;
+            
+            if(!isResponseStatusOk(xmlRequest)){
+                setStatus("Error fetching accounts : "+jsonResponse.status, possibleStatus.ERROR);
+            }
+            
+            var accounts = jsonResponse.accounts;
+            
+            for(var i = 0; i < accounts.length; i++){
+                var account = accounts[i];
+                selectedAccount[i] = new Option(account.name, account.id, false, false);
+            }
+            setStatus("Ok", possibleStatus.OK);
+            
+            selectedAccount.disabled = false;
+            successCallback(accounts);
 	    }
 	    
-	    var xmlRequest = new XMLHttpRequest();
+
 	    xmlRequest.onload = onloadHandler;
 	    xmlRequest.open("GET", accountsUrl);
 	    xmlRequest.setRequestHeader("Cache-Control", "no-cache");
@@ -104,7 +131,20 @@ function addTransaction(description, amount, tags, account)
         setStatus("Adding transaction...", possibleStatus.WARNING);
         var transactionUrl = buxferUrl + "add_transaction.json";
         
+        var xmlRequest = new XMLHttpRequest();
+        
+        var timeoutId = setTimeout(function(){
+            setStatus("Timeout while logging in...", possibleStatus.ERROR);
+            xmlRequest.abort();
+        }, xmlHttpRequestTimeout);
+        
         var onloadHandler = function(){
+            clearTimeout(timeoutId);
+            if(xmlRequest.status == 0){
+                setStatus("Error logging in", possibleStatus.ERROR);
+                return;
+            }
+
             var jsonResponse = JSON.parse(xmlRequest.responseText).response;
             if(!isResponseStatusOk(xmlRequest)){
                 setStatus("Error adding transaction : "+jsonResponse.status, possibleStatus.ERROR);
@@ -130,8 +170,7 @@ function addTransaction(description, amount, tags, account)
         }
         var params = "token="+token+"&format=sms&text="+encodeURIComponent(text);
         
-        var xmlRequest = new XMLHttpRequest();
-	    xmlRequest.onload = onloadHandler;
+        xmlRequest.onload = onloadHandler;
 	    xmlRequest.open("POST", transactionUrl);
 	    xmlRequest.setRequestHeader("Cache-Control", "no-cache");
         xmlRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -298,7 +337,7 @@ if (window.widget) {
 }
 
 
-function submit_Click(event)
+function addTransaction_Click(event)
 {
     var description = descriptionField.value;
     // perhaps here we could try and use a localization to see what is the decimal sign
@@ -307,6 +346,8 @@ function submit_Click(event)
     var account = widget.preferenceForKey(createInstancePreferenceKey("accountName"));
     addTransaction(description, amount, tags, account);
 }
+
+
 
 
 function ReconnectButton_Click(event)
