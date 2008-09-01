@@ -4,15 +4,15 @@
 <dict>
 	<key>Breakpoints</key>
 	<dict>
-		<key>BuxferSubmit.js:131</key>
-		<string>-</string>
-		<key>BuxferSubmit.js:152</key>
-		<string>-</string>
-		<key>BuxferSubmit.js:161</key>
-		<string>-</string>
-		<key>BuxferSubmit.js:323</key>
-		<string>-</string>
-		<key>BuxferSubmit.js:43</key>
+		<key>BuxferSubmit.js:171</key>
+		<string>-addTransaction</string>
+		<key>BuxferSubmit.js:191</key>
+		<string>-load</string>
+		<key>BuxferSubmit.js:200</key>
+		<string>-remove</string>
+		<key>BuxferSubmit.js:364</key>
+		<string>-passwordField_Blur</string>
+		<key>BuxferSubmit.js:45</key>
 		<string>-loginUser</string>
 	</dict>
 	<key>CYBreakOnException</key>
@@ -31,8 +31,8 @@
 		<real>0.0</real>
 		<key>sizes</key>
 		<array>
-			<string>{{0, 0}, {1012, 0}}</string>
-			<string>{{0, 10}, {1012, 679}}</string>
+			<string>{{0, 0}, {1012, 236}}</string>
+			<string>{{0, 246}, {1012, 341}}</string>
 		</array>
 	</dict>
 	<key>ContentViewType</key>
@@ -40,11 +40,11 @@
 	<key>Dashboard Widget Prefs</key>
 	<dict>
 		<key>id</key>
-		<string>3c2efa88f3d3ac41</string>
+		<string>45809bf56cd9ac41</string>
 		<key>in-layer</key>
 		<true/>
 		<key>path</key>
-		<string>/private/var/folders/t5/t5w8JvhcE0uL4uq6DmYCCE+++TI/-Tmp-/Dashcode/.BuxferSubmit.wdgtprojoM2c1K/BuxferSubmit.wdgtproj/project.wdgt/</string>
+		<string>/private/var/folders/t5/t5w8JvhcE0uL4uq6DmYCCE+++TI/-Tmp-/Dashcode/.BuxferSubmit.wdgtproj0v4xWa/BuxferSubmit.wdgtproj/project.wdgt/</string>
 		<key>percent-offset-x</key>
 		<integer>0</integer>
 		<key>percent-offset-y</key>
@@ -52,13 +52,13 @@
 		<key>percent-type</key>
 		<integer>2</integer>
 		<key>percent-x</key>
-		<real>0.01328125037252903</real>
+		<real>0.05390625074505806</real>
 		<key>percent-y</key>
-		<real>0.11500000208616257</real>
+		<real>0.38999998569488525</real>
 		<key>pos-x</key>
-		<integer>949</integer>
+		<integer>897</integer>
 		<key>pos-y</key>
-		<integer>92</integer>
+		<integer>312</integer>
 		<key>rosetta</key>
 		<false/>
 	</dict>
@@ -76,12 +76,12 @@
 		<real>0.0</real>
 		<key>sizes</key>
 		<array>
-			<string>{{0, 0}, {244, 710}}</string>
-			<string>{{245, 0}, {1013, 710}}</string>
+			<string>{{0, 0}, {244, 608}}</string>
+			<string>{{245, 0}, {1013, 608}}</string>
 		</array>
 	</dict>
 	<key>MainWindowFrame</key>
-	<string>-1 47 1257 731 0 0 1280 778 </string>
+	<string>-1 106 1257 672 0 0 1280 778 </string>
 	<key>NavigatorSplitViewGeometry</key>
 	<dict>
 		<key>ContentSplitViewConfig</key>
@@ -96,8 +96,8 @@
 		<real>0.0</real>
 		<key>sizes</key>
 		<array>
-			<string>{{0, 0}, {246, 370}}</string>
-			<string>{{0, 380}, {246, 309}}</string>
+			<string>{{0, 0}, {246, 315}}</string>
+			<string>{{0, 325}, {246, 262}}</string>
 		</array>
 	</dict>
 	<key>Objects view expanded items</key>
@@ -128,7 +128,8 @@
 	<array>
 		<array>
 			<integer>0</integer>
-			<integer>1</integer>
+			<integer>0</integer>
+			<integer>5</integer>
 		</array>
 	</array>
 	<key>Opened Steps</key>
