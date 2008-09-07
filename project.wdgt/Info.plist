@@ -13,9 +13,9 @@
 	<key>CFBundleName</key>
 	<string>BuxferSubmit</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1</string>
+	<string>1.2</string>
 	<key>CFBundleVersion</key>
-	<string>1.1</string>
+	<string>1.2</string>
 	<key>CloseBoxInsetX</key>
 	<integer>15</integer>
 	<key>CloseBoxInsetY</key>
@@ -24,6 +24,8 @@
 	<integer>172</integer>
 	<key>MainHTML</key>
 	<string>BuxferSubmit.html</string>
+	<key>Plugin</key>
+	<string>KeyChainAccess.widgetplugin</string>
 	<key>Width</key>
 	<integer>314</integer>
 </dict>

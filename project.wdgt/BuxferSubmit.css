@@ -176,11 +176,12 @@ body {
 #text3 {
     position: absolute;
     color: black;
-    font-family: HelveticaNeue;
     text-overflow: ellipsis;
     overflow: hidden;
     left: 69px;
     top: 94px;
+    font-style: italic;
+    font-family: 'Helvetica Neue';
     font-size: 10pt;
 }
 
