@@ -5,16 +5,17 @@
  code generator otherwise the changes will be lost.
  */
 var dashcodePartSpecs = {
-    "AmountText": { "creationFunction": "CreateText", "text": "Amount" },
-    "DescriptionText": { "creationFunction": "CreateText", "text": "Description" },
+    "addTransactionButton": { "creationFunction": "CreateButton", "leftImageWidth": 5, "onclick": "addTransaction_Click", "rightImageWidth": 5, "text": "add transaction" },
+    "amountText": { "creationFunction": "CreateText", "text": "Amount" },
+    "descriptionText": { "creationFunction": "CreateText", "text": "Description" },
     "done": { "creationFunction": "CreateGlassButton", "onclick": "showFront", "text": "Done" },
     "info": { "backgroundStyle": "black", "creationFunction": "CreateInfoButton", "foregroundStyle": "white", "frontID": "front", "onclick": "showBack" },
     "latestStatusIndicator": { "creationFunction": "CreateIndicator", "criticalValue": 15, "onValue": 1, "warningValue": 10 },
-    "statusText": { "creationFunction": "CreateText", "text": "status text" },
-    "submitButton": { "creationFunction": "CreateGlassButton", "onclick": "addTransaction_Click", "text": "add transaction" },
-    "text": { "creationFunction": "CreateText", "text": "Username" },
-    "text1": { "creationFunction": "CreateText", "text": "Password" },
-    "text2": { "creationFunction": "CreateText", "text": "Selected Account" },
-    "text3": { "creationFunction": "CreateText", "text": "Tags" },
-    "text4": { "creationFunction": "CreateText", "text": "Add a transaction to buxfer" }
+    "passwordText": { "creationFunction": "CreateText", "text": "Password" },
+    "selectedAccount": { "creationFunction": "CreatePopupButton", "disabled": true, "leftImageWidth": 5, "rightImageWidth": 16 },
+    "selectedAccountText": { "creationFunction": "CreateText", "text": "Selected account" },
+    "statusText": { "creationFunction": "CreateText", "text": "status here" },
+    "tagsText": { "creationFunction": "CreateText", "text": "Tags" },
+    "titleText": { "creationFunction": "CreateText", "text": "Add a transaction to buxfer" },
+    "usernameText": { "creationFunction": "CreateText", "text": "Username" }
 };

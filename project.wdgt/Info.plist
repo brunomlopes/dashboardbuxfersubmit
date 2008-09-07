@@ -7,11 +7,11 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
-	<string>BuxferSubmit</string>
+	<string>Untitled</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.brunomlopes.widget.BuxferSubmit</string>
 	<key>CFBundleName</key>
-	<string>BuxferSubmit</string>
+	<string>Untitled</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.2</string>
 	<key>CFBundleVersion</key>
@@ -21,12 +21,12 @@
 	<key>CloseBoxInsetY</key>
 	<integer>15</integer>
 	<key>Height</key>
-	<integer>172</integer>
+	<integer>148</integer>
 	<key>MainHTML</key>
 	<string>BuxferSubmit.html</string>
 	<key>Plugin</key>
 	<string>KeyChainAccess.widgetplugin</string>
 	<key>Width</key>
-	<integer>314</integer>
+	<integer>282</integer>
 </dict>
 </plist>

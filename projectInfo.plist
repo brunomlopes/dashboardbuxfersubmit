@@ -2,23 +2,21 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CYBackwardCompatibleExport</key>
-	<false/>
 	<key>CYProjectFormatVersion</key>
 	<integer>13</integer>
 	<key>CYShineVersion</key>
 	<integer>2</integer>
-	<key>IsInCodeGeneratorMode</key>
-	<true/>
 	<key>MainCSS</key>
 	<string>BuxferSubmit.css</string>
 	<key>MainJS</key>
 	<string>BuxferSubmit.js</string>
+	<key>ProjectSpecType</key>
+	<string>Widget</string>
 	<key>Steps</key>
 	<array>
 		<dict>
 			<key>Completed</key>
-			<true/>
+			<false/>
 			<key>Detail</key>
 			<string>Custom_Step_1_Detail</string>
 			<key>MainHelp</key>
