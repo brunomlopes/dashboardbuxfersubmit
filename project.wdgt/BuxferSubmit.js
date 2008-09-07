@@ -30,6 +30,11 @@ function setStatus(message, status){
     latestStatusIndicator.object.setValue(status);
     statusText.innerText = message;
 }
+
+function setErrorStatusFromRequest(message, request){
+    jsonError = JSON.parse(request.responseText);
+    setStatus(message + jsonError.response.status, possibleStatus.ERROR);
+}
 function isResponseStatusOk(xmlRequest)
 {
     if (xmlRequest.status == 200) {
@@ -49,34 +54,21 @@ function loginUser(successCallback)
 
     var username = widget.preferenceForKey(createInstancePreferenceKey("username"));
     var password = KeyChainAccess.loadPassword(username); 
-    var loginurl = buxferUrl + "login.json?userid="+encodeURIComponent(username)+"&password="+encodeURIComponent(password);
     
-    var xmlRequest = new XMLHttpRequest();
-    
-    var timeoutId = setTimeout(function(){
-        setStatus("Timeout while logging in...", possibleStatus.ERROR);
-        xmlRequest.abort();
-    }, xmlHttpRequestTimeout);
-    
-    var onloadHandler = function() {     
-        clearTimeout(timeoutId);
-        if(xmlRequest.status == 0){
-            setStatus("Error logging in", possibleStatus.ERROR);
-            return;
-        }
-        var jsonResponse = JSON.parse(xmlRequest.responseText).response;
-        if(isResponseStatusOk(xmlRequest)){
+    // TODO: setup global timeout
+    jQuery.ajax({
+        type: "GET",
+        url: buxferUrl+"login.json",
+        dataType : "json",
+        data: "userid="+encodeURIComponent(username)+"&password="+encodeURIComponent(password),
+        error : function(request, textStatus, errorThrown){
+            setErrorStatusFromRequest("Login:", request);
+        },
+        success : function(data, textStatus){
             setStatus("Login ok", possibleStatus.OK);
-            successCallback(jsonResponse.token, jsonResponse.uid);
-        }else{
-            setStatus("Error logging in: "+jsonResponse.status, possibleStatus.ERROR);
+            successCallback(data.response.token, data.response.uid);
         }
-    };	
-    
-    xmlRequest.onload = onloadHandler;
-    xmlRequest.open("GET", loginurl);
-    xmlRequest.setRequestHeader("Cache-Control", "no-cache");
-    xmlRequest.send(null);
+    });
 }
 
 function refreshAccountsList(successCallback)
@@ -85,46 +77,31 @@ function refreshAccountsList(successCallback)
 	    setStatus("Fetching account list...", possibleStatus.WARNING);
 	    var accountsUrl = buxferUrl + "accounts.json?token="+token;
 	    
-	    var xmlRequest = new XMLHttpRequest();
-                
-        var timeoutId = setTimeout(function(){
-            setStatus("Timeout while fetching account list...", possibleStatus.ERROR);
-            xmlRequest.abort();
-        }, xmlHttpRequestTimeout);
-    
-	    var onloadHandler = function() {
-            clearTimeout(timeoutId);
-            if(xmlRequest.status == 0){
-                setStatus("Error logging in", possibleStatus.ERROR);
-                return;
+        jQuery.ajax({
+            type: "GET",
+            url: buxferUrl+"accounts.json",
+            dataType : "json",
+            data: "token="+token,
+            error : function(request, textStatus, errorThrown){
+                setErrorStatusFromRequest("Accounts:", request);
+            },
+            success : function(data, textStatus){
+                setStatus("Accounts ok", possibleStatus.OK);
+                var accounts = data.response.accounts;
+                var accountOptions = [];
+            
+                for(var i = 0; i < accounts.length; i++){
+                    var account = accounts[i];
+                    accountOptions[i] = [account.name, account.id];
+                }
+                setStatus("Ok", possibleStatus.OK);
+            
+                selectedAccount.object.setOptions(accountOptions);
+                selectedAccount.object.setEnabled(true);
+                successCallback(accounts);
             }
-
-            var jsonResponse = JSON.parse(xmlRequest.responseText).response;
-            
-            if(!isResponseStatusOk(xmlRequest)){
-                setStatus("Error fetching accounts : "+jsonResponse.status, possibleStatus.ERROR);
-            }
-            
-            var accounts = jsonResponse.accounts;
-            var accountOptions = [];
-            
-            for(var i = 0; i < accounts.length; i++){
-                var account = accounts[i];
-                accountOptions[i] = [account.name, account.id];
-            }
-            setStatus("Ok", possibleStatus.OK);
-            
-            selectedAccount.object.setOptions(accountOptions);
-            selectedAccount.object.setEnabled(true);
-            successCallback(accounts);
-	    }
-	    
-
-	    xmlRequest.onload = onloadHandler;
-	    xmlRequest.open("GET", accountsUrl);
-	    xmlRequest.setRequestHeader("Cache-Control", "no-cache");
-	    xmlRequest.send(null);
-	});
+        });
+    });
 }
 
 function addTransaction(description, amount, tags, account)
