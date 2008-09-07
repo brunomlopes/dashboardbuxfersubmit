@@ -75,7 +75,6 @@ function refreshAccountsList(successCallback)
 {
     loginUser(function(token, uid){
 	    setStatus("Fetching account list...", possibleStatus.WARNING);
-	    var accountsUrl = buxferUrl + "accounts.json?token="+token;
 	    
         jQuery.ajax({
             type: "GET",
@@ -108,36 +107,6 @@ function addTransaction(description, amount, tags, account)
 {
     loginUser(function(token, uid){
         setStatus("Adding transaction...", possibleStatus.WARNING);
-        var transactionUrl = buxferUrl + "add_transaction.json";
-        
-        var xmlRequest = new XMLHttpRequest();
-        
-        var timeoutId = setTimeout(function(){
-            setStatus("Timeout while logging in...", possibleStatus.ERROR);
-            xmlRequest.abort();
-        }, xmlHttpRequestTimeout);
-        
-        var onloadHandler = function(){
-            clearTimeout(timeoutId);
-            if(xmlRequest.status == 0){
-                setStatus("Error logging in", possibleStatus.ERROR);
-                return;
-            }
-
-            var jsonResponse = JSON.parse(xmlRequest.responseText).response;
-            if(!isResponseStatusOk(xmlRequest)){
-                setStatus("Error adding transaction : "+jsonResponse.status, possibleStatus.ERROR);
-            }
-            if (!jsonResponse.transactionAdded){
-                setStatus("Transaction wasn't added...", possibleStatus.WARNING);
-                return;
-            }
-            if (jsonResponse.parseStatus != "success"){
-                setStatus("Transaction wasn't parsed correctly...", possibleStatus.WARNING);
-                return;
-            }
-            setStatus("Added to "+ (account || " no account"), possibleStatus.OK);
-        };
         
         var text = description + " " + amount;
         
@@ -147,14 +116,30 @@ function addTransaction(description, amount, tags, account)
         if(account){
             text += " acct:" + account;
         }
-        var params = "token="+token+"&format=sms&text="+encodeURIComponent(text);
         
-        xmlRequest.onload = onloadHandler;
-	    xmlRequest.open("POST", transactionUrl);
-	    xmlRequest.setRequestHeader("Cache-Control", "no-cache");
-        xmlRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlRequest.setRequestHeader("Content-length", params.length);
-	    xmlRequest.send(params);
+        var params = "token="+token+"&format=sms&text="+encodeURIComponent(text);
+               
+        jQuery.ajax({
+            type: "POST",
+            url: buxferUrl+"add_transaction.json",
+            dataType : "json",
+            data: params,
+            error : function(request, textStatus, errorThrown){
+                setErrorStatusFromRequest("Add trans.:", request);
+            },
+            success : function(data, textStatus){
+                jsonResponse = data.response;
+                if (jsonResponse.parseStatus != "success"){
+                    setStatus("Transaction wasn't parsed correctly...", possibleStatus.WARNING);
+                    return;
+                }
+                if (!jsonResponse.transactionAdded){
+                    setStatus("Transaction wasn't added...", possibleStatus.WARNING);
+                    return;
+                }
+                setStatus("Added to "+ (account || " no account"), possibleStatus.OK);
+            }
+        });
     });
 }
 
