@@ -14,6 +14,7 @@ var buxferUrl = "https://www.buxfer.com/api/";
 var possibleStatus = { UNKNOWN : 0, OK : 5, WARNING : 12, ERROR : 15 };
 var xmlHttpRequestTimeout = 30000;
 
+KeyChainAccess.setAppName("Buxfer Widget");
 
 function isFirstTime(){
     if(widget.preferenceForKey(createInstancePreferenceKey("alreadyConfigured")) || false){
@@ -46,7 +47,7 @@ function loginUser(successCallback)
     setStatus("Logging in...", possibleStatus.WARNING);
 
     var username = widget.preferenceForKey(createInstancePreferenceKey("username"));
-    var password = widget.preferenceForKey(createInstancePreferenceKey("password"));
+    var password = KeyChainAccess.loadPassword(username); 
     var loginurl = buxferUrl + "login.json?userid="+encodeURIComponent(username)+"&password="+encodeURIComponent(password);
     
     var xmlRequest = new XMLHttpRequest();
@@ -71,8 +72,6 @@ function loginUser(successCallback)
         }
     };	
     
-    // XMLHttpRequest setup code
-
     xmlRequest.onload = onloadHandler;
     xmlRequest.open("GET", loginurl);
     xmlRequest.setRequestHeader("Cache-Control", "no-cache");
@@ -184,7 +183,6 @@ function addTransaction(description, amount, tags, account)
 //
 function load()
 {
-    setupParts();
     if(isFirstTime()){
         showBack(null);
     }else{
@@ -201,7 +199,7 @@ function remove()
     // Stop any timers to prevent CPU usage
     // Remove any preferences as needed
     widget.setPreferenceForKey(null, createInstancePreferenceKey("username"));
-    widget.setPreferenceForKey(null, createInstancePreferenceKey("password"));
+    //widget.setPreferenceForKey(null, createInstancePreferenceKey("password"));
     widget.setPreferenceForKey(null, createInstancePreferenceKey("accountId"));
     widget.setPreferenceForKey(null, createInstancePreferenceKey("accountName"));
     widget.setPreferenceForKey(null, createInstancePreferenceKey("alreadyConfigured"));
@@ -276,19 +274,22 @@ function selectCorrectAccount(){
 
 function loadPreferences()
 {
-    passwordField.value = widget.preferenceForKey(createInstancePreferenceKey("password")) || "";
+    //passwordField.value = createInstancePreferenceKey("username") || "";
     usernameField.value = widget.preferenceForKey(createInstancePreferenceKey("username")) || "";
-    
+    passwordField.value = KeyChainAccess.loadPassword(usernameField.value)
+
     refreshAccountsList(selectCorrectAccount);
 }
 
 function savePreferences()
 {
-    var preferenceValue = passwordField.value;
-    widget.setPreferenceForKey(preferenceValue, createInstancePreferenceKey("password"));
+    //var preferenceValue = passwordField.value;
+    //widget.setPreferenceForKey(preferenceValue, createInstancePreferenceKey("password"));
     
-    preferenceValue = usernameField.value;
+    var preferenceValue = usernameField.value;
     widget.setPreferenceForKey(preferenceValue, createInstancePreferenceKey("username"));
+    
+    KeyChainAccess.savePassword(usernameField.value, passwordField.value);
     
     if(selectedAccount.selectedIndex == -1){
         widget.setPreferenceForKey(null, createInstancePreferenceKey("accountId"));

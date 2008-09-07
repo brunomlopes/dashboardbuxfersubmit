@@ -5,7 +5,15 @@
 	<key>CYBackwardCompatibleExport</key>
 	<false/>
 	<key>CYProjectFormatVersion</key>
-	<integer>1</integer>
+	<integer>13</integer>
+	<key>CYShineVersion</key>
+	<integer>2</integer>
+	<key>IsInCodeGeneratorMode</key>
+	<true/>
+	<key>MainCSS</key>
+	<string>BuxferSubmit.css</string>
+	<key>MainJS</key>
+	<string>BuxferSubmit.js</string>
 	<key>Steps</key>
 	<array>
 		<dict>

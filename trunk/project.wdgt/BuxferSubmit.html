@@ -14,51 +14,35 @@
     <script type="text/javascript" src="Parts/Text.js" charset="utf-8"></script>
     <script type="text/javascript" src="Parts/InfoButton.js" charset="utf-8"></script>
     <script type="text/javascript" src="Parts/GlassButton.js" charset="utf-8"></script>
-	<script type="text/javascript" src="json2.js" charset="utf-8"></script>
+    <script type="text/javascript" src="json2.js" charset="utf-8"></script>
     <script type="text/javascript" src="BuxferSubmit.js" charset="utf-8"></script>
-<script type="text/javascript" src="Parts/Indicator.js" charset="utf-8"></script>
+    <script type="text/javascript" src="Parts/Indicator.js" charset="utf-8"></script>
 </head>
 <body onload="load();">
     <div id="front">
-        <img id="frontImg" src="Images/front.png" alt="" apple-locked="true" apple-part="com.apple.Dashcode.part.frontimage" apple-style="image-theme: 1; image-shape: 3; image-opacity: 1.00; image-top-color: 1.0000,1.0000,1.0000; image-bottom-color: 0.6154,0.6154,0.6154; image-radius: 12,12,12,12; image-border: 1; image-border-color: 0.5294,0.5294,0.5294; image-border-width: 1; shine-on: 0; shine-strength: 0.90; shine-alpha-level: 0.67; shine-height: 0.50; glass-arc-height: 0.06; shadow-include-shadow: 1; shadow-blur: 9.00; shadow-offset: -1.00,-6.00; shadow-color: 0.0000,0.0000,0.0000,0.3333;">
-        <div class="apple-no-children" id="info" apple-part="com.apple.Dashcode.part.infobutton" apple-default-image-visibility="hidden"></div>
-        
-    <input type="text" name="" value="" class="apple-textfield apple-no-children" apple-part="com.apple.Dashcode.part.textfield" id="descriptionField" apple-group="textfield">
-
-    <input type="text" name="" value="" class="apple-textfield apple-no-children" apple-part="com.apple.Dashcode.part.textfield" id="amountField" apple-group="textfield1">
-    
-    <input type="text" name="" value="" class="apple-textfield apple-no-children" apple-part="com.apple.Dashcode.part.textfield" id="tagsField" apple-group="textfield">
-    
-    <div apple-part="com.apple.Dashcode.part.glassbutton" class="apple-no-children" id="submitButton" apple-group="glassbutton"></div>
-    
-    <div apple-part="com.apple.Dashcode.part.text" class="apple-text apple-no-children" apple-default-image-visibility="hidden" apple-text-overflow="ellipsis" id="DescriptionText" apple-group="text"></div>
-    <div apple-part="com.apple.Dashcode.part.text" class="apple-text apple-no-children" apple-default-image-visibility="hidden" apple-text-overflow="ellipsis" id="AmountText" apple-group="text1"></div>
-    
- 
-    <div apple-part="com.apple.Dashcode.part.indicator" class="apple-no-children" id="latestStatusIndicator" apple-group="indicator" apple-locked="false"></div>
-    
-    
-
-    <div apple-part="com.apple.Dashcode.part.text" class="apple-text apple-no-children" apple-default-image-visibility="hidden" apple-text-overflow="ellipsis" id="text3" apple-group="text3"></div>
-    <div apple-part="com.apple.Dashcode.part.text" class="apple-text apple-no-children" apple-default-image-visibility="hidden" apple-text-overflow="ellipsis" id="statusText" apple-group="text2" apple-locked="false"></div>
-    <div apple-part="com.apple.Dashcode.part.text" class="apple-text apple-no-children" apple-default-image-visibility="hidden" apple-text-overflow="ellipsis" id="text4" apple-group="text4"></div>
+        <img id="frontImg" src="Images/front.png" alt="">
+        <div id="info"></div>
+        <input type="text" name="" value="" id="descriptionField">
+        <input type="text" name="" value="" id="amountField">
+        <input type="text" name="" value="" id="tagsField">
+        <div id="submitButton"></div>
+        <div apple-text-overflow="ellipsis" id="DescriptionText"></div>
+        <div apple-text-overflow="ellipsis" id="AmountText"></div>
+        <div id="latestStatusIndicator"></div>
+        <div apple-text-overflow="ellipsis" id="text3"></div>
+        <div apple-text-overflow="ellipsis" id="statusText"></div>
+        <div apple-text-overflow="ellipsis" id="text4"></div>
     </div>
     <div id="back">
-       <img id="backImg" src="Images/back.png" alt="" apple-locked="true" apple-part="com.apple.Dashcode.part.backimage" apple-style=" image-radius: 12,12,12,12; image-border: 1; image-border-color: 0.1500,0.1500,0.1500; image-border-width: 3; shadow-include-shadow: 1; shadow-blur: 9.00; shadow-offset: -1.00,-6.00; shadow-color: 0.0000,0.0000,0.0000,0.3333;">
-        
-    
-    <input type="text" name="" value="" class="apple-textfield apple-no-children" apple-part="com.apple.Dashcode.part.textfield" id="usernameField" apple-group="textfield1">
-    <input type="password" name="" value="" class="apple-textfield apple-no-children" apple-part="com.apple.Dashcode.part.textfield" id="passwordField" apple-group="textfield" onblur="passwordField_Blur(event)">
-    
-    <div id="done" class="apple-no-children" apple-part="com.apple.Dashcode.part.glassbutton"></div>
-
-    <div apple-part="com.apple.Dashcode.part.text" class="apple-text apple-no-children" apple-default-image-visibility="hidden" apple-text-overflow="ellipsis" id="text" apple-group="text"></div>
-    <div apple-part="com.apple.Dashcode.part.text" class="apple-text apple-no-children" apple-default-image-visibility="hidden" apple-text-overflow="ellipsis" id="text1" apple-group="text1"></div>
-    
-    <select apple-part="com.apple.Dashcode.part.backpopupbutton" id="selectedAccount" apple-group="popup" disabled="disabled">
-    </select>
-    <div apple-part="com.apple.Dashcode.part.text" class="apple-text apple-no-children" apple-default-image-visibility="hidden" apple-text-overflow="ellipsis" id="text2" apple-group="text2"></div>
+        <img id="backImg" src="Images/back.png" alt="">
+        <input type="text" name="" value="" id="usernameField">
+        <input type="password" name="" value="" id="passwordField" onblur="passwordField_Blur(event)">
+        <div id="done"></div>
+        <div apple-text-overflow="ellipsis" id="text"></div>
+        <div apple-text-overflow="ellipsis" id="text1"></div>
+        <select id="selectedAccount" disabled="disabled">
+        </select>
+        <div apple-text-overflow="ellipsis" id="text2"></div>
     </div>
-
 </body>
 </html>
