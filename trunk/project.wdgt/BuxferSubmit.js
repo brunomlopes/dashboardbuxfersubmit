@@ -311,7 +311,6 @@ if (window.widget) {
     widget.onsync = sync;
 }
 
-
 function addTransaction_Click(event)
 {
     var description = descriptionField.value;
@@ -328,5 +327,14 @@ function passwordField_Blur(event)
     // save the preferences so that the login function can get the correct username and password
     savePreferences();
     refreshAccountsList(selectCorrectAccount);
+}
+
+function tagsField_KeyUp(event)
+{
+    if(event.keyIdentifier == "Enter"){
+        addTransaction_Click();
+        return false;
+    }
+    return true;
 }
 
