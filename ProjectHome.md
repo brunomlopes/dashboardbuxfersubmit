@@ -1,0 +1,1 @@
+This is just a simple dashboard widget to allow registering a transaction in buxfer
